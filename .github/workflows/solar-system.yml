@@ -1,0 +1,33 @@
+name: solar system workflow
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+      - 'feature-*'
+
+env:
+  MONGO_URI: 'mongodb://localhost:27017/super-db'
+  MONGO_USERNAME: ${{ vars.MONGO_USERNAME }}
+  MONGO_PASSWORD: ${{ secrets.MONGO_PASSWORD }}
+
+jobs:
+  unit-testing:
+    name: Unit Testing
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Run Unit Tests
+        run: npm test
