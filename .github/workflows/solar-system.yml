@@ -18,10 +18,10 @@ jobs:
     strategy:
       matrix:
         nodejs-version: [18, 19, 20]
-          operating-system: [ubuntu-latest, macOS-latest]
-          exclude:
-            - operating-system: macOS-latest
-              nodejs-version: 18
+        operating-system: [ubuntu-latest, macOS-latest]
+        exclude:
+          - operating-system: macOS-latest
+            nodejs-version: 18
 
     runs-on: ${{ matrix.operating-system }}
 
