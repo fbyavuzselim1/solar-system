@@ -14,34 +14,32 @@ env:
 
 jobs:
   unit-testing:
-    name: Unit Testing
-    strategy:
-      matrix:
-        nodejs-version: [18, 19, 20]
-        operating-system: [ubuntu-latest, macOS-latest]
-        exclude:
-          - operating-system: macOS-latest
-            nodejs-version: 18
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+      - run: npm install
+      - run: npm test
 
-    runs-on: ${{ matrix.operating-system }}
-
+    code-coverage:
+    name: Code Coverage
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
 
       - name: Setup Node.js
         uses: actions/setup-node@v3
-        with:
-          node-version: ${{ matrix.nodejs-version }}
 
       - name: Install Dependencies
         run: npm install
 
-      - name: Run Unit Tests
-        run: npm test
+      - name: Check Code Coverage
+        run: npm run coverage
 
-      - name: Archive Test Results
-        uses: actions/upload-artifact@v4
+      - name: Archive Test Result
+        uses: actions/upload-artifact@v3
         with:
-          name: mocha-test-result
-          path: test-results.xml
+          name: code coverage result
+          path: coverage
+          retention-days: 5
