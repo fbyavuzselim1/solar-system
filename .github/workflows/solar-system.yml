@@ -22,24 +22,24 @@ jobs:
       - run: npm test
 
     code-coverage:
-    name: Code Coverage
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v3
+      name: Code Coverage
+      runs-on: ubuntu-latest
+      steps:
+        - name: Checkout Repository
+          uses: actions/checkout@v3
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
+        - name: Setup Node.js
+          uses: actions/setup-node@v3
 
-      - name: Install Dependencies
-        run: npm install
+        - name: Install Dependencies
+          run: npm install
 
-      - name: Check Code Coverage
-        run: npm run coverage
+        - name: Check Code Coverage
+          run: npm run coverage
 
-      - name: Archive Test Result
-        uses: actions/upload-artifact@v3
-        with:
-          name: code coverage result
-          path: coverage
-          retention-days: 5
+        - name: Archive Test Result
+          uses: actions/upload-artifact@v3
+          with:
+            name: code coverage result
+            path: coverage
+            retention-days: 5
