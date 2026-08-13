@@ -48,7 +48,7 @@ jobs:
 
   docker:
     name: Containerization
-    needs: [unit_testing, code_coverage]
+    needs: [unit-testing, code-coverage]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
