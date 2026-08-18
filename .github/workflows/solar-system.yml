@@ -115,7 +115,12 @@ jobs:
   dev-deploy:
     if: contains(github.ref, 'feature/')
     needs: docker
-    uses: .github/workflows/reuse-deployment.yml
+    uses: ./.github/workflows/reuse-deployment.yml
+    secrets:
+       k8s-kubeconfig: {{ secrets.KUBECONFIG }}
+       mongodb-password: {{ secrets.MONGO_PASSWORD}}
+    with: 
+       mongodb-uri: {{ vars.MONGO_URI}}
   integration-testing:
     needs: dev-deploy
     runs-on: ubuntu-latest
@@ -130,4 +135,4 @@ jobs:
   prod-deploy:
     if: contains(github.ref, 'feature/')
     needs: docker
-    uses: .github/workflows/reuse-deployment.yml
+    uses: ./.github/workflows/reuse-deployment.yml
